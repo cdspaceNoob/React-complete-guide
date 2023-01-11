@@ -1,7 +1,8 @@
-import ExpensItem from "./components/ExpenseItem";
-import Expenses from "./components/Expenses";
+import React from "react";
+import ExpensItem from "./components/Expenses/ExpenseItem";
+import Expenses from "./components/Expenses/Expenses";
 
-function App() {
+const App = () => {
   const expenses = [
     {
       id: 'e1',
@@ -24,6 +25,12 @@ function App() {
     },
   ];
 
+
+  // return React.createElement('div', {},
+  //   React.createElement('h2', {}, 'Let\'s get started!'),
+  //   React.createElement(Expenses, { items: expenses })
+  // );
+
   return (
     <div>
       <h2>Let's get started!</h2>
@@ -36,7 +43,7 @@ function App() {
       <ExpensItem title={expenses[3].title} amount={expenses[3].amount} date={expenses[3].date} /> */}
 
       {/* props에 data라는 이름으로 expenses를 보내겠다. */}
-      <Expenses data={expenses} />
+      <Expenses items={expenses} />
     </div>
   );
 
