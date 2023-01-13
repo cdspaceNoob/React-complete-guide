@@ -1,33 +1,47 @@
 import React from "react";
+import { useState } from "react";
 import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses/Expenses";
 
+// 구별을 위해 상수는 대문자로 SNAKE_CASE를 사용한다. 
+const DUMMY_EXPENSES = [
+  {
+    id: 'e1',
+    title: 'Toilet Paper',
+    amount: 94.12,
+    date: new Date(2020, 7, 14),
+  },
+  { id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12) },
+  {
+    id: 'e3',
+    title: 'Car Insurance',
+    amount: 294.67,
+    date: new Date(2021, 2, 28),
+  },
+  {
+    id: 'e4',
+    title: 'New Desk (Wooden)',
+    amount: 450,
+    date: new Date(2021, 5, 12),
+  },
+];
+
 const App = () => {
-  const expenses = [
-    {
-      id: 'e1',
-      title: 'Toilet Paper',
-      amount: 94.12,
-      date: new Date(2020, 7, 14),
-    },
-    { id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12) },
-    {
-      id: 'e3',
-      title: 'Car Insurance',
-      amount: 294.67,
-      date: new Date(2021, 2, 28),
-    },
-    {
-      id: 'e4',
-      title: 'New Desk (Wooden)',
-      amount: 450,
-      date: new Date(2021, 5, 12),
-    },
-  ];
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
 
   const addExpenseHandler = (expense) => {
-    console.log('In App.js');
-    console.log(expense);
+    // ModernJS에서 본 기본 문법이다. 기본 원소에 콤마(,)와 ...연산자를 써서 새로운 배열을 만든다.
+    // expense는 배열이다. 따라서 아래처럼 표현식이 나온다. 
+    // 그러나 좀 특별한 함수를 써야 할 필요가 있다.
+    // setExpenses([expense, ...expenses]);
+    setExpenses((prevExpenses)=>{ // prev는 React에 의해 자동으로 생성된다. 
+      console.log(prevExpenses);
+      console.log(expense);
+      console.log([expense, ...prevExpenses]);
+      return [expense, ...prevExpenses];
+    });
+    // console.log('In App.js');
+    // console.log(expense);
   };
 
   // return React.createElement('div', {},
