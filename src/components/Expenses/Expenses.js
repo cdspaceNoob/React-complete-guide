@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Card from "../UI/Card";
-import ExpensItem from "./ExpenseItem";
+import ExpenseItem from "./ExpenseItem";
 import ExpensesFilter from "./ExpensesFilter";
 import "./Expenses.css";
 
@@ -26,6 +26,33 @@ function Expenses(props) {
     (expense) => expense.date.getFullYear().toString() === filteredYear
   );
 
+  // 이런 것도 가능하다. JSX를 사용할 수 있다. 
+  let expensesContent = <p>No expense found.</p>;
+
+  // if (filteredExpenses.length > 0) {
+  //   expensesContent = filteredExpenses.map((expense) =>
+  //   (
+  //     <ExpenseItem
+  //       key={expense.id}
+  //       title={expense.title}
+  //       amount={expense.amount}
+  //       date={expense.date}
+  //     />
+  //   )
+  //   )
+  // }
+
+  if (filteredExpenses.length > 0) {
+    expensesContent = filteredExpenses.map((expense) =>
+    (<ExpenseItem
+      key={expense.id}
+      title={expense.title}
+      amount={expense.amount}
+      date={expense.date}
+    />)
+    )
+  }
+
   return (
     <div>
       <Card className="expenses">
@@ -39,16 +66,17 @@ function Expenses(props) {
         {/* {props.items.map(expense => <ExpensItem key={expense.id} title={expense.title} amount={expense.amount} date={expense.date} />)} */}
 
         {/* true && true일 때 뒤의 것을 반환하므로 아래와 같이 쓸 수도 있다. */}
-        {filteredExpenses.length === 0 && <p>No Expense found.</p>}
+        {/* {filteredExpenses.length === 0 && <p>No Expense found.</p>}
         {filteredExpenses.length > 0 &&
           filteredExpenses.map((expense) => (
-            <ExpensItem
+            <ExpenseItem
               key={expense.id}
               title={expense.title}
               amount={expense.amount}
               date={expense.date}
             />
-          ))}
+          ))} */}
+        {expensesContent}
 
         {/* {props.items.filter(expense => expense.date.toString() === filteredYear)} */}
         {/* <ExpensItem title={props.items[0].title} amount={props.items[0].amount} date={props.items[0].date} />
