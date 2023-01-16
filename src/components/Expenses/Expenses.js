@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import Card from "../UI/Card";
-import ExpenseItem from "./ExpenseItem";
+// import ExpenseItem from "./ExpenseItem";
 import ExpensesFilter from "./ExpensesFilter";
 import "./Expenses.css";
+import ExpensesList from "./ExpensesList";
+import ExpensesChart from "./ExpensesChart";
 
 function Expenses(props) {
   //props는 expenses 배열.(객체를 4개 담고 있다)
@@ -26,9 +28,6 @@ function Expenses(props) {
     (expense) => expense.date.getFullYear().toString() === filteredYear
   );
 
-  // 이런 것도 가능하다. JSX를 사용할 수 있다. 
-  let expensesContent = <p>No expense found.</p>;
-
   // if (filteredExpenses.length > 0) {
   //   expensesContent = filteredExpenses.map((expense) =>
   //   (
@@ -42,16 +41,19 @@ function Expenses(props) {
   //   )
   // }
 
-  if (filteredExpenses.length > 0) {
-    expensesContent = filteredExpenses.map((expense) =>
-    (<ExpenseItem
-      key={expense.id}
-      title={expense.title}
-      amount={expense.amount}
-      date={expense.date}
-    />)
-    )
-  }
+  // 이런 것도 가능하다. JSX를 사용할 수 있다. 
+  // let expensesContent = <p>No expense found.</p>;
+
+  // if (filteredExpenses.length > 0) {
+  //   expensesContent = filteredExpenses.map((expense) =>
+  //   (<ExpenseItem
+  //     key={expense.id}
+  //     title={expense.title}
+  //     amount={expense.amount}
+  //     date={expense.date}
+  //   />)
+  //   )
+  // }
 
   return (
     <div>
@@ -60,6 +62,8 @@ function Expenses(props) {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
+        <ExpensesChart expenses={filteredExpenses} />
+        <ExpensesList items={filteredExpenses} />
         {/* data를 ExpenseItem으로 바꾼다. */}
         {/* props.items는 items라는 이름으로 전달된 expenses 배열이다(객체들을 원소로 가지는). */}
         {/* expense는 expenses를 순회하는 currentValue를 의미한다. */}
@@ -76,7 +80,7 @@ function Expenses(props) {
               date={expense.date}
             />
           ))} */}
-        {expensesContent}
+        {/* {expensesContent} */}
 
         {/* {props.items.filter(expense => expense.date.toString() === filteredYear)} */}
         {/* <ExpensItem title={props.items[0].title} amount={props.items[0].amount} date={props.items[0].date} />
